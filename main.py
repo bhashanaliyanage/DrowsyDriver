@@ -6,11 +6,11 @@ import testing as test
 import computations_drowsy
 
 # Getting webcam
-camera_port = 0
-cam = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)
+camera_port = 0  # Defining camera port
+cam = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)  # Getting camera
 # test.check_camera(cam)
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("resources/shape_predictor_68_face_landmarks.dat")
+predictor = dlib.shape_predictor("resources/shape_predictor_68_face_landmarks.dat")  # Getting landmarks
 
 # Key variables (These variables will help for the calculation)
 sleep = 0
@@ -19,6 +19,7 @@ active = 0
 status = ""
 color = (0, 0, 0)
 
+########################################################################################################################
 
 while True:
     # Reading from camera
@@ -38,9 +39,15 @@ while True:
         landmarks = predictor(gray, face)
         landmarks = face_utils.shape_to_np(landmarks)
 
+        ################################################################################################################
+
         # Setting the landmarks to detect eyes
-        left_blink = computations_drowsy.blinked(landmarks[36], landmarks[37], landmarks[38], landmarks[41], landmarks[40], landmarks[39])
-        right_blink = computations_drowsy.blinked(landmarks[42], landmarks[43], landmarks[44], landmarks[47], landmarks[46], landmarks[45])
+        left_blink = computations_drowsy.blinked(landmarks[36], landmarks[37], landmarks[38], landmarks[41],
+                                                 landmarks[40], landmarks[39])
+        right_blink = computations_drowsy.blinked(landmarks[42], landmarks[43], landmarks[44], landmarks[47],
+                                                  landmarks[46], landmarks[45])
+
+        ################################################################################################################
 
         # Calculating eye blinks
         if left_blink == 0 or right_blink == 0:
@@ -67,6 +74,8 @@ while True:
                 status = "User is ACTIVE"
                 color = (0, 255, 0)
 
+        ################################################################################################################
+
         cv2.putText(frame, status, (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 1.2, color, 3)
 
         for n in range(0, 68):
@@ -75,7 +84,7 @@ while True:
 
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1)
-    if key == 27:
+    if key == 27:  # Esc button
         break
 
 cam.release()
