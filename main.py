@@ -30,8 +30,8 @@ while True:
     _, frame = cam.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    faces = detector(gray)
-    for face in faces:
+    faces = detector(gray)  # Applying DLIB Face detector to the video frame to find out the face in video
+    for face in faces:  # Looping over DLIB facial nodes
         x1 = face.left()
         y1 = face.top()
         x2 = face.right()
@@ -41,7 +41,7 @@ while True:
         cv2.rectangle(face_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
         landmarks = predictor(gray, face)
-        landmarks = face_utils.shape_to_np(landmarks)
+        landmarks = face_utils.shape_to_np(landmarks)  # Converting facial landmarks to a NUMPY array
 
         ################################################################################################################ Bhashana
 

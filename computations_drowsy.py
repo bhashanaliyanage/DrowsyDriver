@@ -1,7 +1,8 @@
 import numpy as np
+import winsound
 
 
-def compute(pt_a, pt_b):
+def compute(pt_a, pt_b):  # Getting an average ratio
     dist = np.linalg.norm(pt_a - pt_b)
     return dist
 
@@ -18,3 +19,7 @@ def blinked(a, b, c, d, e, f):
         return 1
     else:
         return 0
+
+
+def beep():
+    winsound.Beep(1000, 100)
